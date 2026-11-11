@@ -13,4 +13,6 @@ router.get("health", (_req, res) => {
   res.json({ status: "ok", message: "QuickCart API is running" });
 });
 
+export default router;
+
 // Next: STEP 6 (start the server) -> server/src/
