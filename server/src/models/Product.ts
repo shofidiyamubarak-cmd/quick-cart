@@ -56,7 +56,7 @@ export interface IProduct {
   flashSaleStocks?: number; // units offered in the flash sales, used to show "Claimed:82%"
   bundleProducts: Types.ObjectId[]; // "Frequently Bought Together" product
   relatedproducts: Types.ObjectId[]; // "Related Products" (empty = same category)
-  status: "Published" | "draft" | "scheduled";
+  status: "published" | "draft" | "scheduled";
   PublishAt?: Date; // for "scheduled": the product goes live at this time
 }
 
@@ -126,8 +126,8 @@ const productSchema = new Schema<IProduct>(
 
     status: {
       type: String,
-      enum: ["Published", "draft", "scheduled"],
-      default: "Published",
+      enum: ["published", "draft", "scheduled"],
+      default: "published",
     },
 
     PublishAt: { type: Date },
