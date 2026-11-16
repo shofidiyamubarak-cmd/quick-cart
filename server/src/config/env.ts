@@ -36,5 +36,6 @@ export const env = {
   cloudinaryApiKey: process.env.CLOUDINARY_API_KEY || "",
   cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
   brevoApiKey: process.env.BREVO_API_KEY?.trim() || "",
+  emailFrom: process.env.EMAIL_FROM || "", // must be a sender you verified in Brevo
   emailFromName: process.env.EMAIL_FROM_NAME || "QuickCart",
 };
