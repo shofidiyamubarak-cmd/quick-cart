@@ -7,6 +7,7 @@ import { categories } from "./categories";
 import { products, SeedProduct } from "./products";
 import { Types } from "mongoose";
 import { slugify } from "../utils/slugify";
+import { User } from "../models/Users";
 
 // STEP 12: Put the demo data in the database (part 1: shap the records)
 // The data files use slugsand simple names; the database needs real ids, full photo addresses and every field the model expects. these functions do that translation.
@@ -65,6 +66,12 @@ export const photosFor = (slug: string, photoIds: string[]): string[] => {
 // categories.ts is already shaped like the category model, so we hand it over as it is.
 export const demoCategories = () => {
   return categories;
+};
+
+// --- Users ---------------------------------------------------------------------------
+// users.ts is already shaped like the User model. Passwords are hashed by the model when seed.ts saves them.
+export const demoUsers = () => {
+  return User;
 };
 
 // ------------------ Products --------------------------

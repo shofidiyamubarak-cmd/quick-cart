@@ -3,13 +3,15 @@
 // Running it again wipes the demo collections and starts fresh, so its always safe to re-run
 import dns from "node:dns";
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 import mongoose, { Types } from "mongoose";
 import { Category } from "../models/Category";
 import { Product } from "../models/Product";
-import { demoCategories, demoProducts } from "./demoData";
+import { demoCategories, demoProducts, demoUsers } from "./demoData";
 import { listProductPhotoId } from "../config/cloudinary";
 import { products } from "./products";
 import { connectDB } from "../config/database";
+import { User } from "../models/Users";
 
 // STEP 13: The seed command
 // seedDatabase() does the work and is exported, so the demo panel can refuse it.
@@ -17,7 +19,11 @@ import { connectDB } from "../config/database";
 
 export const seedDatabase = async () => {
   // 1. Empty the collections (both at the same time with Promise.all)
-  await Promise.all([Category.deleteMany({}), Product.deleteMany({})]);
+  await Promise.all([
+    Category.deleteMany({}),
+    Product.deleteMany({}),
+    User.deleteMany({}),
+  ]);
 
   //   2. Save the categories, then remember each ones id by slug: "electronics" ->
   // ObjectId (...)
@@ -75,7 +81,11 @@ export const seedDatabase = async () => {
     }),
   );
 
-  //   6. A summary for whoever ran the seed
+  // 6. Save the demo users. User.create (NOT insertMany): only create/save runs the model's
+  // pre("save") hook, which hashes the passwords. insertMany would store them as plain text!
+  const savedUsers = await User.create(demoUsers() as any);
+
+  //   7. A summary for whoever ran the seed
   return {
     categories: savedCategories.length,
     products: saveProducts.length,
@@ -96,7 +106,7 @@ const runSeed = async () => {
     const result = await seedDatabase();
 
     console.log(
-      `Seeded ${result.categories} categories and ${result.products} products`,
+      ` Seeded ${result.categories} categories, ${result.products} products and ${result.withoutPhotos}  withoutPhotos,`,
     );
 
     if (result.withoutPhotos.length > 0) {
