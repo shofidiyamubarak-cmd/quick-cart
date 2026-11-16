@@ -3,7 +3,6 @@
 // Running it again wipes the demo collections and starts fresh, so its always safe to re-run
 import dns from "node:dns";
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
-
 import mongoose, { Types } from "mongoose";
 import { Category } from "../models/Category";
 import { Product } from "../models/Product";
@@ -12,6 +11,7 @@ import { listProductPhotoId } from "../config/cloudinary";
 import { products } from "./products";
 import { connectDB } from "../config/database";
 import { User } from "../models/Users";
+import { users } from "./Userss";
 
 // STEP 13: The seed command
 // seedDatabase() does the work and is exported, so the demo panel can refuse it.
@@ -83,12 +83,13 @@ export const seedDatabase = async () => {
 
   // 6. Save the demo users. User.create (NOT insertMany): only create/save runs the model's
   // pre("save") hook, which hashes the passwords. insertMany would store them as plain text!
-  const savedUsers = await User.create(demoUsers() as any);
+  const savedUsers = await User.create(demoUsers());
 
   //   7. A summary for whoever ran the seed
   return {
     categories: savedCategories.length,
     products: saveProducts.length,
+    users: savedUsers.length,
     withoutPhotos: saveProducts
       .filter((product) => {
         return product.images.length === 0;
@@ -106,7 +107,7 @@ const runSeed = async () => {
     const result = await seedDatabase();
 
     console.log(
-      ` Seeded ${result.categories} categories, ${result.products} products and ${result.withoutPhotos}  withoutPhotos,`,
+      `Seeded ${result.categories} categories and ${result.products} products and ${result.users} users`,
     );
 
     if (result.withoutPhotos.length > 0) {
