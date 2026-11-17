@@ -4,6 +4,7 @@
 import { Router } from "express";
 import categoryRoutes from "./categoryRoutes";
 import productRoutes from "./productRoutes";
+import accountRoutes from "./accountRoutes";
 
 // STEP 5:Join the routes and add a health check
 // One router joins all the route files. app.ts mounts it at /api, so a rout like e.g "/products" becomes /api/products
@@ -17,6 +18,7 @@ router.get("health", (_req, res) => {
 
 router.use("/categories", categoryRoutes); // /api/categories...
 router.use("/products", productRoutes); // /api/products...
+router.use("/account", accountRoutes); // /api/account...
 
 export default router;
 
