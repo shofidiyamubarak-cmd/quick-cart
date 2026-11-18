@@ -16,6 +16,7 @@ import type { AdminProductRow } from "../../types/admin";
 import { api } from "../../utils/api";
 import { shortDate } from "../../utils/dates";
 import { naira } from "../../utils/format";
+import { announceCountsChanged } from "../../utils/adminEvents";
 
 // The small note under the SKU, depending on the product
 const noteFor = (product: AdminProductRow) => {
@@ -108,6 +109,7 @@ const ProductsTable = ({ products, onDeleted }: ProductsTableProps) => {
         title: "Couldn't delete the product",
         message: (err as Error).message,
       });
+      announceCountsChanged(); // the menu's "Products 40" (STEP 43)
     }
   };
 
