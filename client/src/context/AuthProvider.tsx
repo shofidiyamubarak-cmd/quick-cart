@@ -74,13 +74,19 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
-  return (
-    <AuthContext.Provider
-      value={{ user, checking, login, register, logout, setUser }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  <AuthContext.Provider
+    value={{
+      user,
+      checking,
+      login,
+      register,
+      logout,
+      setUser,
+      startSession,
+    }}
+  >
+    {children}
+  </AuthContext.Provider>;
 };
 
 export default AuthProvider;
