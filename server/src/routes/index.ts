@@ -17,7 +17,7 @@ import adminRoutes from "./adminRoutes";
 const router = Router();
 
 // Get /api/health: a quick check that the API is running
-router.get("health", (_req, res) => {
+router.get("health/", (_req, res) => {
   res.json({ status: "ok", message: "QuickCart API is running" });
 });
 
