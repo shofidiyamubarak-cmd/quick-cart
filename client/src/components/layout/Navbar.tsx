@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/images/Link (1).png";
-import { MdOutlineLocalMall, MdSearch } from "react-icons/md";
+import { MdOutlineLocalMall } from "react-icons/md";
+import SearchBox from "./SearchBox";
 import AccountMenu from "./AccountMenu";
 import { useCart } from "../../context/CartContext";
 
@@ -48,23 +49,7 @@ const Navbar = () => {
 
         {/* search, cart and profiles */}
         <div className="flex items-center gap-4">
-          <form role="search" className="relative hidden lg:block">
-            <label htmlFor="header-search" className="sr-only">
-              Search products, brands and categories
-            </label>
-            <MdSearch
-              size={21}
-              aria-hidden="true"
-              className="pointer-events-none absolute top-3 left-3.25 text-muted"
-            />
-            <input
-              id="header-search"
-              name="search"
-              type="search"
-              placeholder="Search products, brands and categories..."
-              className="h-12 w-83 rounded-full bg-field pr-4 pl-11.75 text-[13px] text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/30"
-            />
-          </form>
+          <SearchBox />
 
           <Link
             to="/cart"
