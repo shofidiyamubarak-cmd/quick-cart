@@ -353,9 +353,10 @@ const Footer = () => {
                 </li>
               </ul>
 
-              <p role="status" className="text-xs text-white/70 empty:hidden">
-                ...
-              </p>
+              <p
+                role="status"
+                className="text-xs text-white/70 empty:hidden"
+              ></p>
             </div>
           </section>
 
